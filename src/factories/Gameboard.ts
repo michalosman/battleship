@@ -3,7 +3,7 @@ import Ship from './Ship'
 const SIZE = 10
 
 class Gameboard {
-  board: object[][]
+  board: Ship[][]
   missedShots: boolean[][]
 
   constructor() {
@@ -104,6 +104,53 @@ class Gameboard {
             )
               continue
             if (this.board[positionX + x + i][positionY + y]) return false
+          }
+        }
+      }
+    }
+    return true
+  }
+
+  receiveAttack(positionX: number, positionY: number) {
+    if (
+      positionX < 0 ||
+      positionX >= SIZE ||
+      positionY < 0 ||
+      positionY >= SIZE
+    ) {
+      return
+    }
+
+    if (this.board[positionX][positionY]) {
+      let hitIndex = 0
+      // is vertical
+      if (positionY > 0 && this.board[positionX][positionY - 1]) {
+        let i = 1
+        while (positionY - i >= 0 && this.board[positionX][positionY - i]) {
+          hitIndex++
+          i++
+        }
+      }
+      // is horizontal
+      else if (positionX > 0 && this.board[positionX - 1][positionY]) {
+        let i = 1
+        while (positionX - i >= 0 && this.board[positionX - i][positionY]) {
+          hitIndex++
+          i++
+        }
+      }
+      this.board[positionX][positionY].hit(hitIndex)
+    } else {
+      this.missedShots[positionX][positionY] = true
+    }
+  }
+
+  isGameOver() {
+    for (let i = 0; i < SIZE; i++) {
+      for (let j = 0; j < SIZE; j++) {
+        if (this.board[i][j]) {
+          if (!this.board[i][j].isSunk()) {
+            return false
           }
         }
       }
