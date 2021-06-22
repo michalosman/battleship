@@ -7,7 +7,7 @@ describe('Gameboard', () => {
   let testObjectArray: object[][]
   let testBooleanArray: boolean[][]
 
-  beforeAll(() => {
+  beforeEach(() => {
     gameboard = new Gameboard()
     ship = new Ship(3)
     testObjectArray = []
