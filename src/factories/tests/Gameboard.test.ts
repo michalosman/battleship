@@ -3,44 +3,51 @@ import Ship from '../Ship'
 
 describe('Gameboard', () => {
   let gameboard: Gameboard
-  let testArray: boolean[][]
+  let ship: Ship
+  let testObjectArray: object[][]
+  let testBooleanArray: boolean[][]
 
   beforeAll(() => {
     gameboard = new Gameboard()
-    testArray = []
+    ship = new Ship(3)
+    testObjectArray = []
+    testBooleanArray = []
 
     for (let i = 0; i < 10; i++) {
-      testArray[i] = []
+      testObjectArray[i] = []
+      testBooleanArray[i] = []
       for (let j = 0; j < 10; j++) {
-        testArray[i][j] = false
+        testObjectArray[i][j] = null
+        testBooleanArray[i][j] = false
       }
     }
   })
 
   test('creates and initializes a gameboard', () => {
-    expect(gameboard).toEqual({ board: testArray })
+    expect(gameboard).toEqual({
+      board: testObjectArray,
+      missedShots: testBooleanArray,
+    })
   })
 
   test('places a ship', () => {
-    const ship = new Ship(3)
     gameboard.placeShip(ship, 1, 1, true)
-
-    testArray[1][1] = true
-    testArray[1][2] = true
-    testArray[1][3] = true
-
-    expect(gameboard).toEqual({ board: testArray })
+    testObjectArray[1][1] = ship
+    testObjectArray[1][2] = ship
+    testObjectArray[1][3] = ship
+    expect(gameboard).toEqual({
+      board: testObjectArray,
+      missedShots: testBooleanArray,
+    })
   })
 
   test('prevents ship placement outside gameboard', () => {
-    const ship = new Ship(3)
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isPlacementPossible(ship, 8, 8, true)).toBe(false)
     expect(gameboard.isPlacementPossible(ship, 10, 10, true)).toBe(false)
   })
 
   test('prevents ship placement on taken fields', () => {
-    const ship = new Ship(3)
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isPlacementPossible(ship, 1, 1, true)).toBe(false)
     expect(gameboard.isPlacementPossible(ship, 1, 2, true)).toBe(false)
@@ -48,9 +55,9 @@ describe('Gameboard', () => {
   })
 
   test('prevents ship placement in direct neighbourhood of taken fields', () => {
-    const ship = new Ship(3)
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isPlacementPossible(ship, 0, 0, true)).toBe(false)
-    // expect(gameboard.isPlacementPossible(ship, 2, 4, true)).toBe(false)
+    expect(gameboard.isPlacementPossible(ship, 2, 4, true)).toBe(false)
+    expect(gameboard.isPlacementPossible(ship, 2, 5, true)).toBe(true)
   })
 })

@@ -3,18 +3,22 @@ import Ship from './Ship'
 const SIZE = 10
 
 class Gameboard {
-  board: boolean[][]
+  board: object[][]
+  missedShots: boolean[][]
 
   constructor() {
     this.board = []
+    this.missedShots = []
     this.initialize()
   }
 
   initialize() {
     for (let i = 0; i < SIZE; i++) {
       this.board[i] = []
+      this.missedShots[i] = []
       for (let j = 0; j < SIZE; j++) {
-        this.board[i][j] = false
+        this.board[i][j] = null
+        this.missedShots[i][j] = false
       }
     }
   }
@@ -30,11 +34,11 @@ class Gameboard {
 
     if (isVertical) {
       for (let i = 0; i < ship.length; i++) {
-        this.board[positionX][positionY + i] = true
+        this.board[positionX][positionY + i] = ship
       }
     } else {
       for (let i = 0; i < ship.length; i++) {
-        this.board[positionX + i][positionY] = true
+        this.board[positionX + i][positionY] = ship
       }
     }
   }
@@ -104,11 +108,8 @@ class Gameboard {
         }
       }
     }
-
     return true
   }
-
-  receiveAttack() {}
 }
 
 export default Gameboard
