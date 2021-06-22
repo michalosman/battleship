@@ -17,7 +17,7 @@ describe('Player', () => {
     expect(player).toEqual({ name: 'p1', alreadyHitCoords: [] })
   })
 
-  test('hits', () => {
+  test('attacks', () => {
     gameboard.placeShip(ship, 1, 1, true)
     player.attack(1, 1, gameboard)
     player.attack(1, 2, gameboard)
@@ -25,7 +25,7 @@ describe('Player', () => {
     expect(gameboard.isGameOver()).toBe(true)
   })
 
-  test('randomly hits', () => {
+  test('randomly attacks', () => {
     gameboard.placeShip(ship, 1, 1, true)
     for (let i = 0; i < 100; i++) {
       player.randomAttack(gameboard)

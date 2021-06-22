@@ -74,6 +74,8 @@ describe('Gameboard', () => {
   })
 
   test('tells if game is over', () => {
+    expect(gameboard.isGameOver()).toBe(false)
+
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isGameOver()).toBe(false)
     gameboard.receiveAttack(1, 1)

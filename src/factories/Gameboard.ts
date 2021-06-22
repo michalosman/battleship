@@ -30,7 +30,7 @@ class Gameboard {
     isVertical: boolean
   ) {
     if (!this.isPlacementPossible(ship, positionX, positionY, isVertical))
-      return
+      return false
 
     if (isVertical) {
       for (let i = 0; i < ship.length; i++) {
@@ -41,6 +41,7 @@ class Gameboard {
         this.board[positionX + i][positionY] = ship
       }
     }
+    return true
   }
 
   isPlacementPossible(
@@ -118,7 +119,7 @@ class Gameboard {
       positionY < 0 ||
       positionY >= SIZE
     ) {
-      return
+      return false
     }
 
     if (this.board[positionX][positionY]) {
@@ -140,24 +141,26 @@ class Gameboard {
         }
       }
       this.board[positionX][positionY].hit(hitIndex)
+      return true
     } else {
       this.missedShots[positionX][positionY] = true
+      return false
     }
   }
 
   isGameOver() {
-    let shipsAmount = 0
+    let isBoardEmpty = true
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE; j++) {
         if (this.board[i][j]) {
-          shipsAmount++
+          isBoardEmpty = false
           if (!this.board[i][j].isSunk()) {
             return false
           }
         }
       }
     }
-    return shipsAmount === 0 ? false : true
+    return isBoardEmpty ? false : true
   }
 }
 

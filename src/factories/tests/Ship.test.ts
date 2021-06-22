@@ -4,11 +4,11 @@ describe('Ship', () => {
   let ship: Ship
 
   beforeEach(() => {
-    ship = new Ship(4)
+    ship = new Ship(3)
   })
 
   test('creates and initializes a ship', () => {
-    expect(ship).toEqual({ length: 4, hits: [] })
+    expect(ship).toEqual({ length: 3, hits: [] })
   })
 
   test('takes a hit', () => {
@@ -20,7 +20,6 @@ describe('Ship', () => {
     ship.hit(0)
     ship.hit(1)
     ship.hit(2)
-    ship.hit(3)
     expect(ship.isSunk()).toBe(true)
   })
 
