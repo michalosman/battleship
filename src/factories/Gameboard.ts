@@ -146,16 +146,18 @@ class Gameboard {
   }
 
   isGameOver() {
+    let shipsAmount = 0
     for (let i = 0; i < SIZE; i++) {
       for (let j = 0; j < SIZE; j++) {
         if (this.board[i][j]) {
+          shipsAmount++
           if (!this.board[i][j].isSunk()) {
             return false
           }
         }
       }
     }
-    return true
+    return shipsAmount === 0 ? false : true
   }
 }
 
