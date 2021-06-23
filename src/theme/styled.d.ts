@@ -12,5 +12,15 @@ declare module 'styled-components' {
         secondary: string
       }
     }
+    padding: {
+      sm: string
+      md: string
+      lg: string
+    }
+    width: {
+      sm: string
+      md: string
+      lg: string
+    }
   }
 }
