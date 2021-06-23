@@ -5,8 +5,8 @@ const Theme = {
       secondary: '#ddd',
     },
     dark: {
-      primary: '#444',
-      secondary: '#555',
+      primary: '#222',
+      secondary: '#444',
     },
   },
   padding: {
