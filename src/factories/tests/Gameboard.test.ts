@@ -41,6 +41,12 @@ describe('Gameboard', () => {
     })
   })
 
+  test('randomly places 5 ships', () => {
+    gameboard.placeShipsRandomly()
+    console.log(gameboard.board)
+    expect(gameboard.getEmptyFieldsAmount()).toBe(83)
+  })
+
   test('prevents ship placement outside gameboard', () => {
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isPlacementPossible(ship, 8, 8, true)).toBe(false)

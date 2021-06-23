@@ -44,6 +44,36 @@ class Gameboard {
     return true
   }
 
+  placeShipsRandomly() {
+    if (!this.isEmpty()) return
+
+    const ships = []
+    const carrier = new Ship(5)
+    const battleship = new Ship(4)
+    const destroyer = new Ship(3)
+    const submarine = new Ship(3)
+    const patrolBoat = new Ship(2)
+    ships.push(carrier, battleship, destroyer, submarine, patrolBoat)
+
+    let succesfulPlacements = 0
+
+    while (succesfulPlacements < 5) {
+      const positionX = Math.floor(Math.random() * 10)
+      const positionY = Math.floor(Math.random() * 10)
+      const isVertical = Math.floor(Math.random() * 2) === 1 ? true : false
+
+      if (
+        this.placeShip(
+          ships[succesfulPlacements],
+          positionX,
+          positionY,
+          isVertical
+        )
+      )
+        succesfulPlacements++
+    }
+  }
+
   isPlacementPossible(
     ship: Ship,
     positionX: number,
@@ -161,6 +191,25 @@ class Gameboard {
       }
     }
     return isBoardEmpty ? false : true
+  }
+
+  isEmpty() {
+    for (let i = 0; i < SIZE; i++) {
+      for (let j = 0; j < SIZE; j++) {
+        if (this.board[i][j] !== null) return false
+      }
+    }
+    return true
+  }
+
+  getEmptyFieldsAmount() {
+    let result = 0
+    for (let i = 0; i < SIZE; i++) {
+      for (let j = 0; j < SIZE; j++) {
+        if (this.board[i][j] === null) result++
+      }
+    }
+    return result
   }
 }
 
