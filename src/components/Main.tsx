@@ -1,5 +1,14 @@
+import styled from 'styled-components'
+import Game from './Game/Game'
+
 const Main = () => {
-  return <div></div>
+  return (
+    <MainWrapper>
+      <Game></Game>
+    </MainWrapper>
+  )
 }
+
+const MainWrapper = styled.main``
 
 export default Main
