@@ -43,7 +43,6 @@ describe('Gameboard', () => {
 
   test('randomly places 5 ships', () => {
     gameboard.placeShipsRandomly()
-    console.log(gameboard.board)
     expect(gameboard.getEmptyFieldsAmount()).toBe(83)
   })
 

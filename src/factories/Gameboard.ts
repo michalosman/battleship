@@ -128,10 +128,10 @@ class Gameboard {
         for (let x = -1; x <= 1; x++) {
           for (let y = -1; y <= 1; y++) {
             if (
-              positionX + x < 0 ||
-              positionX + x >= SIZE ||
-              positionY + y + i < 0 ||
-              positionY + y + i >= SIZE
+              positionX + x + i < 0 ||
+              positionX + x + i >= SIZE ||
+              positionY + y < 0 ||
+              positionY + y >= SIZE
             )
               continue
             if (this.board[positionX + x + i][positionY + y]) return false
