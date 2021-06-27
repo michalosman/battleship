@@ -17,6 +17,8 @@ class Player {
   }
 
   randomAttack(gameboard: Gameboard) {
+    if (this.alreadyHitCoords.length === 100) return
+
     let positionX = Math.floor(Math.random() * 10)
     let positionY = Math.floor(Math.random() * 10)
 

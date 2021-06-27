@@ -30,8 +30,8 @@ const Game = () => {
     <GameWrapper>
       <Message></Message>
       <Boards>
-        <Board gameboard={userGameboard}></Board>
-        <Board gameboard={computerGameboard}></Board>
+        <Board gameboard={userGameboard} enemy={computer}></Board>
+        <Board gameboard={computerGameboard} enemy={user}></Board>
       </Boards>
     </GameWrapper>
   )
