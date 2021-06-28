@@ -30,8 +30,12 @@ const Game = () => {
     <GameWrapper>
       <Message></Message>
       <Boards>
-        <Board gameboard={userGameboard} enemy={computer}></Board>
-        <Board gameboard={computerGameboard} enemy={user}></Board>
+        <Board gameboard={userGameboard} owner={user} enemy={computer}></Board>
+        <Board
+          gameboard={computerGameboard}
+          owner={computer}
+          enemy={user}
+        ></Board>
       </Boards>
     </GameWrapper>
   )
@@ -41,6 +45,11 @@ const GameWrapper = styled.div`
   font-size: 5rem;
 `
 const Message = styled.div``
-const Boards = styled.div``
+const Boards = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+`
 
 export default Game
