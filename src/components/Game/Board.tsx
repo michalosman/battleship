@@ -7,25 +7,39 @@ interface Props {
   gameboard: Gameboard
   owner: Player
   enemy: Player
+  onFieldClick?: (positionX: number, positionY: number) => void
 }
 
-const Board = ({ gameboard, owner, enemy }: Props) => {
-  // TODO
-  // On click enemy.attack and reload fields UI
-  // Add gameflow in Game - turns and random computer attacks
-
+const Board = ({ gameboard, owner, enemy, onFieldClick }: Props) => {
   const loadFields = () => {
     const fields = []
     for (let row = 0; row < gameboard.board.length; row++) {
       for (let column = 0; column < gameboard.board[row].length; column++) {
         const field = gameboard.board[row][column]
         let status = 'default'
-        if (gameboard.missedShots[row][column]) status = 'missed'
         if (field) {
           if (owner.name !== 'Computer') status = 'ship'
           if (enemy.hasAlreadyHit(row, column)) status = 'hit'
+        } else {
+          if (gameboard.missedShots[row][column]) status = 'missed'
         }
-        fields.push(<Field key={uuidv4()} status={status} owner={owner} />)
+
+        let fieldComponent = <Field></Field>
+        if (owner.name === 'Computer') {
+          fieldComponent = (
+            <Field
+              key={uuidv4()}
+              status={status}
+              owner={owner}
+              onClick={() => onFieldClick(row, column)}
+            />
+          )
+        } else {
+          fieldComponent = (
+            <Field key={uuidv4()} status={status} owner={owner} />
+          )
+        }
+        fields.push(fieldComponent)
       }
     }
     return fields
@@ -44,8 +58,8 @@ const BoardWrapper = styled.div`
 `
 
 interface IField {
-  status: string
-  owner: Player
+  status?: string
+  owner?: Player
 }
 
 const Field = styled.div<IField>`

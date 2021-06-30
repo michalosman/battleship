@@ -4,8 +4,15 @@ import Gameboard from '../../factories/Gameboard'
 import Player from '../../factories/Player'
 import Board from './Board'
 
+// TODO
+// * Add missing functionalities
+// * Fix layout
+// * Refactoring
+// * Clean code
+
 const Game = () => {
-  // const [hasStarted, setHasStarted] = useState(false)
+  const [user, setUser] = useState(new Player('User'))
+  const [computer, setComputer] = useState(new Player('Computer'))
   const [userGameboard, setUserGameboard] = useState(new Gameboard())
   const [computerGameboard, setComputerGameboard] = useState(new Gameboard())
 
@@ -23,18 +30,49 @@ const Game = () => {
     setComputerGameboard(random2)
   }
 
-  const user = new Player('User')
-  const computer = new Player('Computer')
+  const handleComputerFieldClick = (positionX: number, positionY: number) => {
+    if (computerGameboard.isGameOver() || userGameboard.isGameOver()) return
+
+    let userCopy: Player = Object.assign(
+      Object.create(Object.getPrototypeOf(user)),
+      user
+    )
+
+    let computerCopy: Player = Object.assign(
+      Object.create(Object.getPrototypeOf(computer)),
+      computer
+    )
+
+    let userGameboardCopy: Gameboard = Object.assign(
+      Object.create(Object.getPrototypeOf(userGameboard)),
+      userGameboard
+    )
+
+    let computerGameboardCopy: Gameboard = Object.assign(
+      Object.create(Object.getPrototypeOf(computerGameboard)),
+      computerGameboard
+    )
+
+    userCopy.attack(positionX, positionY, computerGameboardCopy)
+    setUser(userCopy)
+    setComputerGameboard(computerGameboardCopy)
+    if (computerGameboard.isGameOver()) alert('You won')
+
+    computerCopy.randomAttack(userGameboardCopy)
+    setComputer(computerCopy)
+    setUserGameboard(userGameboardCopy)
+    if (userGameboard.isGameOver()) alert('Computer won')
+  }
 
   return (
     <GameWrapper>
-      <Message></Message>
       <Boards>
         <Board gameboard={userGameboard} owner={user} enemy={computer}></Board>
         <Board
           gameboard={computerGameboard}
           owner={computer}
           enemy={user}
+          onFieldClick={handleComputerFieldClick}
         ></Board>
       </Boards>
     </GameWrapper>
@@ -44,7 +82,6 @@ const Game = () => {
 const GameWrapper = styled.div`
   font-size: 5rem;
 `
-const Message = styled.div``
 const Boards = styled.div`
   display: flex;
   align-items: center;
