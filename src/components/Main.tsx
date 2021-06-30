@@ -9,6 +9,8 @@ const Main = () => {
   )
 }
 
-const MainWrapper = styled.main``
+const MainWrapper = styled.main`
+  margin-top: 12rem;
+`
 
 export default Main

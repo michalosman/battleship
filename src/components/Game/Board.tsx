@@ -90,13 +90,13 @@ const Field = styled.div<IField>`
   ${({ status }) =>
     status === 'missed' &&
     css`
-      background-color: ${({ theme }) => theme.colors.red};
+      background-color: ${({ theme }) => theme.colors.green};
     `}
 
   ${({ status }) =>
     status === 'hit' &&
     css`
-      background-color: ${({ theme }) => theme.colors.green};
+      background-color: ${({ theme }) => theme.colors.red};
     `}
 `
 

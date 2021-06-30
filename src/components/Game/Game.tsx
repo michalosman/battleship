@@ -5,8 +5,8 @@ import Player from '../../factories/Player'
 import Board from './Board'
 
 // TODO
-// * Add missing functionalities
-// * Fix layout
+// * Start screen
+// * End screen
 // * Refactoring
 // * Clean code
 
@@ -32,6 +32,7 @@ const Game = () => {
 
   const handleComputerFieldClick = (positionX: number, positionY: number) => {
     if (computerGameboard.isGameOver() || userGameboard.isGameOver()) return
+    if (user.hasAlreadyHit(positionX, positionY)) return
 
     let userCopy: Player = Object.assign(
       Object.create(Object.getPrototypeOf(user)),

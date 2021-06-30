@@ -8,8 +8,8 @@ const Theme = {
       primary: '#222',
       secondary: '#444',
     },
-    red: '#ffa6a6',
-    green: '#a6ffc8',
+    red: '#ff8585',
+    green: '#85ffb3',
   },
   padding: {
     sm: '1rem',
