@@ -1,6 +1,6 @@
 # Battleship
 
-Battleship game made with React.
+Battleship game created in order to practice JavaScript testing.
 
 [Live Demo](https://michalosman.github.io/battleship/) :point_left:
 
@@ -17,3 +17,4 @@ npm start
 
 - [React](https://reactjs.org/)
 - [styled-components](https://styled-components.com/)
+- [jest](https://jestjs.io/)
