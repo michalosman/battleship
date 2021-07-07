@@ -24,5 +24,10 @@ declare module 'styled-components' {
       md: string
       lg: string
     }
+    borderRadius: {
+      sm: string
+      md: string
+      lg: string
+    }
   }
 }

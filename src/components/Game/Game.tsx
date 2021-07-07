@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Gameboard from '../../factories/Gameboard'
 import Player from '../../factories/Player'
 import Board from './Board'
+import EndScreen from './EndScreen'
 import StartScreen from './StartScreen'
 
 // TODO
@@ -13,6 +14,8 @@ import StartScreen from './StartScreen'
 
 const Game = () => {
   const [hasGameStarted, setHasGameStarted] = useState(false)
+  const [isGameOver, setIsGameOver] = useState(false)
+  const [endScreenMessage, setEndScreenMessage] = useState('')
   const [user, setUser] = useState(new Player('User'))
   const [computer, setComputer] = useState(new Player('Computer'))
   const [userGameboard, setUserGameboard] = useState(new Gameboard())
@@ -30,6 +33,13 @@ const Game = () => {
     const random2 = new Gameboard()
     random2.placeShipsRandomly()
     setComputerGameboard(random2)
+  }
+
+  const resetGame = () => {
+    setUser(new Player('User'))
+    setComputer(new Player('Computer'))
+    setRandomGameboards()
+    setIsGameOver(false)
   }
 
   const handleComputerFieldClick = (positionX: number, positionY: number) => {
@@ -59,31 +69,39 @@ const Game = () => {
     userCopy.attack(positionX, positionY, computerGameboardCopy)
     setUser(userCopy)
     setComputerGameboard(computerGameboardCopy)
-    if (computerGameboard.isGameOver()) alert('You won')
+    if (computerGameboard.isGameOver()) {
+      setEndScreenMessage('You won')
+      setIsGameOver(true)
+    }
 
     computerCopy.randomAttack(userGameboardCopy)
     setComputer(computerCopy)
     setUserGameboard(userGameboardCopy)
-    if (userGameboard.isGameOver()) alert('Computer won')
+    if (userGameboard.isGameOver()) {
+      setEndScreenMessage('Computer won')
+      setIsGameOver(true)
+    }
   }
 
   const startGame = () => {
     setHasGameStarted(true)
   }
 
-  const setupUserGameboard = (gameboard: Gameboard) => {
-    setUserGameboard(gameboard)
-  }
-
   return (
     <GameWrapper>
-      {hasGameStarted ? (
+      {/* {hasGameStarted ? (
         ''
       ) : (
         <StartScreen
+          gameboard={userGameboard}
           startGame={startGame}
-          setupUserGameboard={setupUserGameboard}
+          setUserGameboard={setUserGameboard}
         />
+      )} */}
+      {isGameOver ? (
+        <EndScreen message={endScreenMessage} resetGame={resetGame} />
+      ) : (
+        ''
       )}
       <Boards>
         <Board gameboard={userGameboard} owner={user} enemy={computer}></Board>

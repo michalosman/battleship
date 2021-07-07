@@ -21,6 +21,11 @@ const Theme = {
     md: '1000px',
     lg: '1500px',
   },
+  borderRadius: {
+    sm: '5px',
+    md: '10px',
+    bg: '20px',
+  }
 }
 
 export default Theme

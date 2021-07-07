@@ -2,16 +2,23 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Gameboard from '../../factories/Gameboard'
 import Ship from '../../factories/Ship'
-import {FaRedo} from 'react-icons/fa';
+import { FaRedo } from 'react-icons/fa'
+import Board from './Board'
 
 interface Props {
+  gameboard: Gameboard
   startGame: () => void
-  setupUserGameboard: (gameBoard: Gameboard) => void
+  setUserGameboard: (gameBoard: Gameboard) => void
 }
 
-const StartScreen = ({ startGame, setupUserGameboard }: Props) => {
+const StartScreen = ({ gameboard, startGame, setUserGameboard }: Props) => {
   const [currentShipName, setCurrentShipName] = useState('Carrier')
   const [currentShip, setCurrentShip] = useState(new Ship(5))
+  const [isVertical, setIsVertical] = useState(true)
+
+  const toggleRotate = () => {
+    setIsVertical(!isVertical)
+  }
 
   return (
     <StartScreenWrapper>
@@ -19,8 +26,6 @@ const StartScreen = ({ startGame, setupUserGameboard }: Props) => {
         <p>Welcome to battleship game</p>
         <p>Place your {currentShipName}</p>
         <RotateButton>Rotate</RotateButton>
-        Board
-        <StartButton>Start</StartButton>
       </SetupWindow>
       <Overlay />
     </StartScreenWrapper>
@@ -34,8 +39,8 @@ const StartScreenWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
   width: 100%;
+  height: 100%;
 `
 
 const SetupWindow = styled.div`
@@ -44,16 +49,14 @@ const SetupWindow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 600px;
+  justify-content: space-around;
   width: 600px;
-  padding: 3rem;
+  height: 600px;
+  padding: ${({ theme }) => theme.padding.md};;
   background-color: ${({ theme }) => theme.colors.light.secondary};
 `
 
 const RotateButton = styled.button``
-
-const StartButton = styled.button``
 
 const Overlay = styled.div`
   position: absolute;
