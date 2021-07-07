@@ -66,6 +66,7 @@ const Game = () => {
     if (computerGameboard.isGameOver()) {
       setEndScreenMessage('You won')
       setIsGameOver(true)
+      return
     }
 
     computerCopy.randomAttack(userGameboardCopy)
@@ -74,6 +75,7 @@ const Game = () => {
     if (userGameboard.isGameOver()) {
       setEndScreenMessage('Computer won')
       setIsGameOver(true)
+      return
     }
   }
 
