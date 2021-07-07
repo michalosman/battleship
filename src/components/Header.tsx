@@ -6,6 +6,7 @@ const Header = () => {
 
 const HeaderWrapper = styled.header`
   padding: ${({ theme }) => theme.padding.md};
+  font-family: 'Big Shoulders Stencil Text', cursive;
   font-size: 12rem;
   font-weight: 900;
   letter-spacing: 1rem;

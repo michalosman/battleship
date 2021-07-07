@@ -26,7 +26,6 @@ const FooterWrapper = styled.footer`
   width: 100%;
   padding: ${({ theme }) => theme.padding.sm};
   font-size: 2.4rem;
-  font-weight: 700;
 `
 
 const GithubLink = styled.a`

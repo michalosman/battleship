@@ -18,7 +18,7 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   body {
-    font-family: 'Big Shoulders Stencil Display', cursive;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.6rem;
     background-color: ${({ theme }) => theme.colors.light.primary};
     color: ${({ theme }) => theme.colors.dark.primary};

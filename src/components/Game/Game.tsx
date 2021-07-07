@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Gameboard from '../../factories/Gameboard'
 import Player from '../../factories/Player'
 import Board from './Board'
+import StartScreen from './StartScreen'
 
 // TODO
 // * Start screen
@@ -11,6 +12,7 @@ import Board from './Board'
 // * Clean code
 
 const Game = () => {
+  const [hasGameStarted, setHasGameStarted] = useState(false)
   const [user, setUser] = useState(new Player('User'))
   const [computer, setComputer] = useState(new Player('Computer'))
   const [userGameboard, setUserGameboard] = useState(new Gameboard())
@@ -65,8 +67,24 @@ const Game = () => {
     if (userGameboard.isGameOver()) alert('Computer won')
   }
 
+  const startGame = () => {
+    setHasGameStarted(true)
+  }
+
+  const setupUserGameboard = (gameboard: Gameboard) => {
+    setUserGameboard(gameboard)
+  }
+
   return (
     <GameWrapper>
+      {hasGameStarted ? (
+        ''
+      ) : (
+        <StartScreen
+          startGame={startGame}
+          setupUserGameboard={setupUserGameboard}
+        />
+      )}
       <Boards>
         <Board gameboard={userGameboard} owner={user} enemy={computer}></Board>
         <Board

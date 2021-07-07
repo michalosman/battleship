@@ -2,21 +2,27 @@
   "name": "battleship",
   "version": "0.1.0",
   "private": true,
+  "main": "src/index.tsx",
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/node": "^12.20.15",
-    "@types/react": "^17.0.11",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.1.9",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.0.0",
+    "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
     "@types/styled-components": "^5.1.10",
+    "@types/uuid": "^8.3.0",
+    "jest": "^27.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "4.0.3",
     "styled-components": "^5.3.0",
-    "uuid": "^3.4.0",
-    "web-vitals": "^1.1.2"
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5",
+    "uuid": "^8.3.2",
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,12 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/jest": "^26.0.23",
-    "@types/uuid": "^8.3.0",
-    "jest": "^27.0.5",
-    "ts-jest": "^27.0.3",
-    "typescript": "^4.3.4"
   }
 }
