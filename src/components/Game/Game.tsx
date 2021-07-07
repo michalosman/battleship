@@ -6,12 +6,6 @@ import Board from './Board'
 import EndScreen from './EndScreen'
 import StartScreen from './StartScreen'
 
-// TODO
-// * Start screen
-// * End screen
-// * Refactoring
-// * Clean code
-
 const Game = () => {
   const [hasGameStarted, setHasGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)

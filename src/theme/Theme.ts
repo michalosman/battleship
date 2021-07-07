@@ -24,8 +24,8 @@ const Theme = {
   borderRadius: {
     sm: '5px',
     md: '10px',
-    bg: '20px',
-  }
+    lg: '20px',
+  },
 }
 
 export default Theme

@@ -4,6 +4,7 @@ import Gameboard from '../../factories/Gameboard'
 import Ship from '../../factories/Ship'
 import { FaRedo } from 'react-icons/fa'
 import Board from './Board'
+import Button from '../elements/Button'
 
 interface Props {
   gameboard: Gameboard
@@ -25,7 +26,7 @@ const StartScreen = ({ gameboard, startGame, setUserGameboard }: Props) => {
       <SetupWindow>
         <p>Welcome to battleship game</p>
         <p>Place your {currentShipName}</p>
-        <RotateButton>Rotate</RotateButton>
+        <Button content={'Rotate'} onClick={toggleRotate} />
       </SetupWindow>
       <Overlay />
     </StartScreenWrapper>
@@ -52,11 +53,9 @@ const SetupWindow = styled.div`
   justify-content: space-around;
   width: 600px;
   height: 600px;
-  padding: ${({ theme }) => theme.padding.md};;
+  padding: ${({ theme }) => theme.padding.md};
   background-color: ${({ theme }) => theme.colors.light.secondary};
 `
-
-const RotateButton = styled.button``
 
 const Overlay = styled.div`
   position: absolute;
