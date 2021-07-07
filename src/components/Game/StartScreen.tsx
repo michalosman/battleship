@@ -2,9 +2,8 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Gameboard from '../../factories/Gameboard'
 import Ship from '../../factories/Ship'
-import { FaRedo } from 'react-icons/fa'
-import Board from './Board'
 import Button from '../elements/Button'
+import Board from './Board'
 
 interface Props {
   gameboard: Gameboard

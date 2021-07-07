@@ -4,10 +4,10 @@ import Gameboard from '../../factories/Gameboard'
 import Player from '../../factories/Player'
 import Board from './Board'
 import EndScreen from './EndScreen'
-import StartScreen from './StartScreen'
+// import StartScreen from './StartScreen'
 
 const Game = () => {
-  const [hasGameStarted, setHasGameStarted] = useState(false)
+  // const [hasGameStarted, setHasGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [endScreenMessage, setEndScreenMessage] = useState('')
   const [user, setUser] = useState(new Player('User'))
@@ -77,9 +77,9 @@ const Game = () => {
     }
   }
 
-  const startGame = () => {
-    setHasGameStarted(true)
-  }
+  // const startGame = () => {
+  //   setHasGameStarted(true)
+  // }
 
   return (
     <GameWrapper>
