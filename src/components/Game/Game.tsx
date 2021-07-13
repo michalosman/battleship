@@ -84,7 +84,7 @@ const Game = () => {
           gameboard={userGameboard}
           setUserGameboard={setUserGameboard}
           setHasGameStarted={setHasGameStarted}
-        />
+      />
       )}
       {isGameOver ? (
         <EndScreen message={endScreenMessage} resetGame={resetGame} />

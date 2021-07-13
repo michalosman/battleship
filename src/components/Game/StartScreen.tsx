@@ -24,24 +24,44 @@ const StartScreen = ({
     setIsVertical(!isVertical)
   }
 
-  const onFieldClick = () => {
+  const onFieldClick = (row: number, column: number) => {
+    let gameboardCopy: Gameboard = Object.assign(
+      Object.create(Object.getPrototypeOf(gameboard)),
+      gameboard
+    )
+
+    if (
+      gameboardCopy.isPlacementPossible(currentShip, row, column, isVertical)
+    ) {
+      gameboardCopy.placeShip(currentShip, row, column, isVertical)
+      setUserGameboard(gameboardCopy)
+    }
     // try to place ship on gameboard
     // if successful then change current name and ship
     // if unsuccessful return
     // if name === '' setHasGameStarted(true)
   }
 
-  const fields = gameboard.board.map((row) => {
-    return row.map((field) => (
-      <Field
-        key={uuidv4()}
-        isFilled={field ? true : false}
-        onClick={onFieldClick}
-      >
-        <FieldHover shipLength={currentShip.length} isVertical={isVertical} />
-      </Field>
-    ))
-  })
+  const loadFields = () => {
+    const fields = []
+    for (let row = 0; row < gameboard.board.length; row++) {
+      for (let column = 0; column < gameboard.board[row].length; column++) {
+        fields.push(
+          <Field
+            key={uuidv4()}
+            isFilled={gameboard.board[row][column] ? true : false}
+            onClick={() => onFieldClick(row, column)}
+          >
+            <FieldHover
+              shipLength={currentShip.length}
+              isVertical={isVertical}
+            />
+          </Field>
+        )
+      }
+    }
+    return fields
+  }
 
   return (
     <StartScreenWrapper>
@@ -49,7 +69,7 @@ const StartScreen = ({
         <p>Welcome to battleship game</p>
         <p>Place your {currentShipName}</p>
         <Button content={'Rotate'} onClick={toggleRotate} />
-        <Board>{fields}</Board>
+        <Board>{loadFields()}</Board>
       </SetupWindow>
       <Overlay />
     </StartScreenWrapper>
