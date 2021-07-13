@@ -20,8 +20,8 @@ describe('Player', () => {
   test('attacks', () => {
     gameboard.placeShip(ship, 1, 1, true)
     player.attack(1, 1, gameboard)
-    player.attack(1, 2, gameboard)
-    player.attack(1, 3, gameboard)
+    player.attack(2, 1, gameboard)
+    player.attack(3, 1, gameboard)
     expect(gameboard.isGameOver()).toBe(true)
   })
 

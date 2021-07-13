@@ -33,8 +33,8 @@ describe('Gameboard', () => {
   test('places a ship', () => {
     gameboard.placeShip(ship, 1, 1, true)
     testObjectArray[1][1] = ship
-    testObjectArray[1][2] = ship
-    testObjectArray[1][3] = ship
+    testObjectArray[2][1] = ship
+    testObjectArray[3][1] = ship
     expect(gameboard).toEqual({
       board: testObjectArray,
       missedShots: testBooleanArray,
@@ -55,21 +55,21 @@ describe('Gameboard', () => {
   test('prevents ship placement on taken fields', () => {
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isPlacementPossible(ship, 1, 1, true)).toBe(false)
-    expect(gameboard.isPlacementPossible(ship, 1, 2, true)).toBe(false)
-    expect(gameboard.isPlacementPossible(ship, 1, 3, true)).toBe(false)
+    expect(gameboard.isPlacementPossible(ship, 2, 1, true)).toBe(false)
+    expect(gameboard.isPlacementPossible(ship, 3, 1, true)).toBe(false)
   })
 
   test('prevents ship placement in direct neighbourhood of taken fields', () => {
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isPlacementPossible(ship, 0, 0, true)).toBe(false)
-    expect(gameboard.isPlacementPossible(ship, 2, 4, true)).toBe(false)
-    expect(gameboard.isPlacementPossible(ship, 2, 5, true)).toBe(true)
+    expect(gameboard.isPlacementPossible(ship, 4, 2, true)).toBe(false)
+    expect(gameboard.isPlacementPossible(ship, 5, 2, true)).toBe(true)
   })
 
   test('receives attacks', () => {
     gameboard.placeShip(ship, 1, 1, true)
-    gameboard.receiveAttack(1, 3)
-    expect(gameboard.board[1][3].hits.includes(2)).toBe(true)
+    gameboard.receiveAttack(3, 1)
+    expect(gameboard.board[3][1].hits.includes(2)).toBe(true)
   })
 
   test('keeps track of missed shots', () => {
@@ -84,13 +84,13 @@ describe('Gameboard', () => {
     gameboard.placeShip(ship, 1, 1, true)
     expect(gameboard.isGameOver()).toBe(false)
     gameboard.receiveAttack(1, 1)
-    gameboard.receiveAttack(1, 2)
-    gameboard.receiveAttack(1, 3)
+    gameboard.receiveAttack(2, 1)
+    gameboard.receiveAttack(3, 1)
 
     gameboard.placeShip(new Ship(3), 5, 5, false)
     gameboard.receiveAttack(5, 5)
-    gameboard.receiveAttack(6, 5)
-    gameboard.receiveAttack(7, 5)
+    gameboard.receiveAttack(5, 6)
+    gameboard.receiveAttack(5, 7)
     expect(gameboard.isGameOver()).toBe(true)
   })
 })
