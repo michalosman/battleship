@@ -7,19 +7,19 @@ import EndScreen from './EndScreen'
 import StartScreen from './StartScreen'
 
 const Game = () => {
+  const [user, setUser] = useState(new Player('User'))
+  const [userGameboard, setUserGameboard] = useState(new Gameboard())
+  const [computer, setComputer] = useState(new Player('Computer'))
+  const [computerGameboard, setComputerGameboard] = useState(new Gameboard())
   const [hasGameStarted, setHasGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [endScreenMessage, setEndScreenMessage] = useState('')
-  const [user, setUser] = useState(new Player('User'))
-  const [computer, setComputer] = useState(new Player('Computer'))
-  const [userGameboard, setUserGameboard] = useState(new Gameboard())
-  const [computerGameboard, setComputerGameboard] = useState(new Gameboard())
-
+  
   useEffect(() => {
-    setRandomComputerGameboard()
+    setupComputerGameboard()
   }, [])
 
-  const setRandomComputerGameboard = () => {
+  const setupComputerGameboard = () => {
     const random = new Gameboard()
     random.placeShipsRandomly()
     setComputerGameboard(random)
@@ -27,15 +27,14 @@ const Game = () => {
 
   const resetGame = () => {
     setUser(new Player('User'))
-    setComputer(new Player('Computer'))
-    setIsGameOver(false)
-    setRandomComputerGameboard()
     setUserGameboard(new Gameboard())
+    setComputer(new Player('Computer'))
+    setupComputerGameboard()
     setHasGameStarted(false)
+    setIsGameOver(false)
   }
 
-  const handleComputerFieldClick = (positionX: number, positionY: number) => {
-    if (computerGameboard.isGameOver() || userGameboard.isGameOver()) return
+  const handleFieldClick = (positionX: number, positionY: number) => {
     if (user.hasAlreadyHit(positionX, positionY)) return
 
     let userCopy: Player = Object.assign(
@@ -99,7 +98,7 @@ const Game = () => {
           gameboard={computerGameboard}
           owner={computer}
           enemy={user}
-          onFieldClick={handleComputerFieldClick}
+          onFieldClick={handleFieldClick}
         ></Board>
       </Boards>
     </GameWrapper>
