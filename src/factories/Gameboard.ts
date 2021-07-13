@@ -23,22 +23,16 @@ class Gameboard {
     }
   }
 
-  placeShip(
-    ship: Ship,
-    positionX: number,
-    positionY: number,
-    isVertical: boolean
-  ) {
-    if (!this.isPlacementPossible(ship, positionX, positionY, isVertical))
-      return false
+  placeShip(ship: Ship, row: number, column: number, isVertical: boolean) {
+    if (!this.isPlacementPossible(ship, row, column, isVertical)) return false
 
     if (isVertical) {
       for (let i = 0; i < ship.length; i++) {
-        this.board[positionX][positionY + i] = ship
+        this.board[row + i][column] = ship
       }
     } else {
       for (let i = 0; i < ship.length; i++) {
-        this.board[positionX + i][positionY] = ship
+        this.board[row][column + i] = ship
       }
     }
     return true
@@ -58,52 +52,40 @@ class Gameboard {
     let succesfulPlacements = 0
 
     while (succesfulPlacements < 5) {
-      const positionX = Math.floor(Math.random() * 10)
-      const positionY = Math.floor(Math.random() * 10)
+      const row = Math.floor(Math.random() * 10)
+      const column = Math.floor(Math.random() * 10)
       const isVertical = Math.floor(Math.random() * 2) === 1 ? true : false
 
-      if (
-        this.placeShip(
-          ships[succesfulPlacements],
-          positionX,
-          positionY,
-          isVertical
-        )
-      )
+      if (this.placeShip(ships[succesfulPlacements], row, column, isVertical))
         succesfulPlacements++
     }
   }
 
   isPlacementPossible(
     ship: Ship,
-    positionX: number,
-    positionY: number,
+    row: number,
+    column: number,
     isVertical: boolean
   ) {
     // case position is out of gameboard
-    if (
-      positionX < 0 ||
-      positionX > SIZE - 1 ||
-      positionY < 0 ||
-      positionY > SIZE - 1
-    )
+    if (row < 0 || row > SIZE - 1 || column < 0 || column > SIZE - 1)
       return false
 
     // case ship doesn't fit in gameboard
     if (isVertical) {
-      if (positionY + ship.length > SIZE) return false
+      if (column + ship.length > SIZE) return false
     } else {
-      if (positionX + ship.length > SIZE) return false
+      if (row + ship.length > SIZE) return false
     }
 
     // case any of the fields is already taken
     if (isVertical) {
       for (let i = 0; i < ship.length; i++) {
-        if (this.board[positionX][positionY + i]) return false
+        if (this.board[row][column + i]) return false
       }
     } else {
       for (let i = 0; i < ship.length; i++) {
-        if (this.board[positionX + i][positionY]) return false
+        if (this.board[row + i][column]) return false
       }
     }
 
@@ -113,13 +95,13 @@ class Gameboard {
         for (let x = -1; x <= 1; x++) {
           for (let y = -1; y <= 1; y++) {
             if (
-              positionX + x < 0 ||
-              positionX + x >= SIZE ||
-              positionY + y + i < 0 ||
-              positionY + y + i >= SIZE
+              row + x < 0 ||
+              row + x >= SIZE ||
+              column + y + i < 0 ||
+              column + y + i >= SIZE
             )
               continue
-            if (this.board[positionX + x][positionY + y + i]) return false
+            if (this.board[row + x][column + y + i]) return false
           }
         }
       }
@@ -128,13 +110,13 @@ class Gameboard {
         for (let x = -1; x <= 1; x++) {
           for (let y = -1; y <= 1; y++) {
             if (
-              positionX + x + i < 0 ||
-              positionX + x + i >= SIZE ||
-              positionY + y < 0 ||
-              positionY + y >= SIZE
+              row + x + i < 0 ||
+              row + x + i >= SIZE ||
+              column + y < 0 ||
+              column + y >= SIZE
             )
               continue
-            if (this.board[positionX + x + i][positionY + y]) return false
+            if (this.board[row + x + i][column + y]) return false
           }
         }
       }
@@ -142,38 +124,33 @@ class Gameboard {
     return true
   }
 
-  receiveAttack(positionX: number, positionY: number) {
-    if (
-      positionX < 0 ||
-      positionX >= SIZE ||
-      positionY < 0 ||
-      positionY >= SIZE
-    ) {
+  receiveAttack(row: number, column: number) {
+    if (row < 0 || row >= SIZE || column < 0 || column >= SIZE) {
       return false
     }
 
-    if (this.board[positionX][positionY]) {
+    if (this.board[row][column]) {
       let hitIndex = 0
       // is vertical
-      if (positionY > 0 && this.board[positionX][positionY - 1]) {
+      if (column > 0 && this.board[row][column - 1]) {
         let i = 1
-        while (positionY - i >= 0 && this.board[positionX][positionY - i]) {
+        while (column - i >= 0 && this.board[row][column - i]) {
           hitIndex++
           i++
         }
       }
       // is horizontal
-      else if (positionX > 0 && this.board[positionX - 1][positionY]) {
+      else if (row > 0 && this.board[row - 1][column]) {
         let i = 1
-        while (positionX - i >= 0 && this.board[positionX - i][positionY]) {
+        while (row - i >= 0 && this.board[row - i][column]) {
           hitIndex++
           i++
         }
       }
-      this.board[positionX][positionY].hit(hitIndex)
+      this.board[row][column].hit(hitIndex)
       return true
     } else {
-      this.missedShots[positionX][positionY] = true
+      this.missedShots[row][column] = true
       return false
     }
   }
