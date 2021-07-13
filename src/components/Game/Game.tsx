@@ -7,7 +7,7 @@ import EndScreen from './EndScreen'
 import StartScreen from './StartScreen'
 
 const Game = () => {
-  const [hasGameStarted, setHasGameStarted] = useState(true)
+  const [hasGameStarted, setHasGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [endScreenMessage, setEndScreenMessage] = useState('')
   const [user, setUser] = useState(new Player('User'))
@@ -16,26 +16,22 @@ const Game = () => {
   const [computerGameboard, setComputerGameboard] = useState(new Gameboard())
 
   useEffect(() => {
-    setRandomGameboards()
+    setRandomComputerGameboard()
   }, [])
 
-  const setRandomGameboards = () => {
+  const setRandomComputerGameboard = () => {
     const random = new Gameboard()
     random.placeShipsRandomly()
     setComputerGameboard(random)
-
-    const random1 = new Gameboard()
-    random1.placeShipsRandomly()
-    setUserGameboard(random1)
   }
 
   const resetGame = () => {
     setUser(new Player('User'))
     setComputer(new Player('Computer'))
     setIsGameOver(false)
-    setRandomGameboards() //rename to setComputerGameboard after startScreen implementation
-    // setUserGameboard(new Gameboard())
-    // setHasGameStarted(false)
+    setRandomComputerGameboard()
+    setUserGameboard(new Gameboard())
+    setHasGameStarted(false)
   }
 
   const handleComputerFieldClick = (positionX: number, positionY: number) => {

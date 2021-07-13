@@ -16,8 +16,25 @@ const StartScreen = ({
   setUserGameboard,
   setHasGameStarted,
 }: Props) => {
-  const [currentShipName, setCurrentShipName] = useState('Carrier')
-  const [currentShip, setCurrentShip] = useState(new Ship(5))
+  const ships = [
+    new Ship(5),
+    new Ship(4),
+    new Ship(3),
+    new Ship(3),
+    new Ship(2),
+  ]
+
+  const shipNames = [
+    'Carrier',
+    'Battleship',
+    'Destroyer',
+    'Submarine',
+    'Patrol Boat',
+  ]
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [currentShipName, setCurrentShipName] = useState(shipNames[0])
+  const [currentShip, setCurrentShip] = useState(ships[0])
   const [isVertical, setIsVertical] = useState(false)
 
   const toggleRotate = () => {
@@ -31,15 +48,21 @@ const StartScreen = ({
     )
 
     if (
-      gameboardCopy.isPlacementPossible(currentShip, row, column, isVertical)
+      !gameboardCopy.isPlacementPossible(currentShip, row, column, isVertical)
     ) {
-      gameboardCopy.placeShip(currentShip, row, column, isVertical)
-      setUserGameboard(gameboardCopy)
+      return
     }
-    // try to place ship on gameboard
-    // if successful then change current name and ship
-    // if unsuccessful return
-    // if name === '' setHasGameStarted(true)
+
+    gameboardCopy.placeShip(currentShip, row, column, isVertical)
+    setUserGameboard(gameboardCopy)
+    // currentIndex updates after this method so we need to be 1 step ahead in all operations below
+    setCurrentIndex(currentIndex + 1)
+    setCurrentShip(ships[currentIndex + 1])
+    setCurrentShipName(shipNames[currentIndex + 1])
+
+    if (currentIndex > 3) {
+      setHasGameStarted(true)
+    }
   }
 
   const loadFields = () => {
@@ -117,6 +140,12 @@ interface IField {
 const Field = styled.div<IField>`
   border: 1px solid ${({ theme }) => theme.colors.dark.primary};
   cursor: pointer;
+
+  ${({ isFilled }) =>
+    isFilled &&
+    css`
+      background-color: ${({ theme }) => theme.colors.dark.secondary};
+    `}
 `
 
 interface IFieldHover {
