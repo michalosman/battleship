@@ -16,20 +16,26 @@ const Game = () => {
   const [computerGameboard, setComputerGameboard] = useState(new Gameboard())
 
   useEffect(() => {
-    setRandomComputerGameboard()
+    setRandomGameboards()
   }, [])
 
-  const setRandomComputerGameboard = () => {
+  const setRandomGameboards = () => {
     const random = new Gameboard()
     random.placeShipsRandomly()
     setComputerGameboard(random)
+
+    const random1 = new Gameboard()
+    random1.placeShipsRandomly()
+    setUserGameboard(random1)
   }
 
   const resetGame = () => {
     setUser(new Player('User'))
     setComputer(new Player('Computer'))
-    setRandomComputerGameboard()
     setIsGameOver(false)
+    setRandomGameboards() //rename to setComputerGameboard after startScreen implementation
+    // setUserGameboard(new Gameboard())
+    // setHasGameStarted(false)
   }
 
   const handleComputerFieldClick = (positionX: number, positionY: number) => {
