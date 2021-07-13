@@ -4,10 +4,10 @@ import Gameboard from '../../factories/Gameboard'
 import Player from '../../factories/Player'
 import Board from './Board'
 import EndScreen from './EndScreen'
-// import StartScreen from './StartScreen'
+import StartScreen from './StartScreen'
 
 const Game = () => {
-  // const [hasGameStarted, setHasGameStarted] = useState(false)
+  const [hasGameStarted, setHasGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [endScreenMessage, setEndScreenMessage] = useState('')
   const [user, setUser] = useState(new Player('User'))
@@ -16,23 +16,19 @@ const Game = () => {
   const [computerGameboard, setComputerGameboard] = useState(new Gameboard())
 
   useEffect(() => {
-    setRandomGameboards()
+    setRandomComputerGameboard()
   }, [])
 
-  const setRandomGameboards = () => {
-    const random1 = new Gameboard()
-    random1.placeShipsRandomly()
-    setUserGameboard(random1)
-
-    const random2 = new Gameboard()
-    random2.placeShipsRandomly()
-    setComputerGameboard(random2)
+  const setRandomComputerGameboard = () => {
+    const random = new Gameboard()
+    random.placeShipsRandomly()
+    setComputerGameboard(random)
   }
 
   const resetGame = () => {
     setUser(new Player('User'))
     setComputer(new Player('Computer'))
-    setRandomGameboards()
+    setRandomComputerGameboard()
     setIsGameOver(false)
   }
 
@@ -79,21 +75,17 @@ const Game = () => {
     }
   }
 
-  // const startGame = () => {
-  //   setHasGameStarted(true)
-  // }
-
   return (
     <GameWrapper>
-      {/* {hasGameStarted ? (
+      {hasGameStarted ? (
         ''
       ) : (
         <StartScreen
           gameboard={userGameboard}
-          startGame={startGame}
           setUserGameboard={setUserGameboard}
+          setHasGameStarted={setHasGameStarted}
         />
-      )} */}
+      )}
       {isGameOver ? (
         <EndScreen message={endScreenMessage} resetGame={resetGame} />
       ) : (
