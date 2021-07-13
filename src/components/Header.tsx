@@ -12,6 +12,10 @@ const HeaderWrapper = styled.header`
   letter-spacing: 1rem;
   line-height: 1;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 7rem;
+  }
 `
 
 export default Header

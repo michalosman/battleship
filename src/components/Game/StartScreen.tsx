@@ -118,19 +118,19 @@ const SetupWindow = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  width: 50%;
-  height: 80%;
+  width: 50rem;
+  height: 80rem;
   padding: ${({ theme }) => theme.padding.md};
   background-color: ${({ theme }) => theme.colors.light.secondary};
 `
 
 const Board = styled.div`
   display: grid;
-  grid-template-columns: repeat(10, 40px);
-  grid-template-rows: repeat(10, 40px);
-  width: 402px;
-  height: 402px;
-  border: 1px solid ${({ theme }) => theme.colors.dark.primary};
+  grid-template-columns: repeat(10, 4rem);
+  grid-template-rows: repeat(10, 4rem);
+  width: 40.2rem;
+  height: 40.2rem;
+  border: 0.1rem solid ${({ theme }) => theme.colors.dark.primary};
 `
 
 interface IField {
@@ -138,7 +138,7 @@ interface IField {
 }
 
 const Field = styled.div<IField>`
-  border: 1px solid ${({ theme }) => theme.colors.dark.primary};
+  border: 0.1rem solid ${({ theme }) => theme.colors.dark.primary};
   cursor: pointer;
 
   ${({ isFilled }) =>
@@ -155,8 +155,8 @@ interface IFieldHover {
 
 const FieldHover = styled.div<IFieldHover>`
   position: relative;
-  height: 38px;
-  width: 38px;
+  height: 3.8rem;
+  width: 3.8rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.green};
@@ -164,13 +164,13 @@ const FieldHover = styled.div<IFieldHover>`
     ${({ isVertical, shipLength }) =>
       isVertical &&
       css`
-        height: calc(38px + 40px * ${shipLength - 1});
+        height: calc(3.8rem + 4rem * ${shipLength - 1});
       `}
 
     ${({ isVertical, shipLength }) =>
       !isVertical &&
       css`
-        width: calc(38px + 40px * ${shipLength - 1}); ;
+        width: calc(3.8rem + 4rem * ${shipLength - 1}); ;
       `}
   }
 `

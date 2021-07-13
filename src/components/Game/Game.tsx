@@ -114,6 +114,10 @@ const Boards = styled.div`
   align-items: center;
   justify-content: center;
   gap: 5rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 
 export default Game

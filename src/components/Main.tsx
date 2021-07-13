@@ -11,6 +11,10 @@ const Main = () => {
 
 const MainWrapper = styled.main`
   margin-top: 12rem;
+
+  @media (max-width: 768px) {
+    margin-top: 3rem;
+  }
 `
 
 export default Main
