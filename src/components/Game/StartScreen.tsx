@@ -85,8 +85,8 @@ const Board = styled.div`
   display: grid;
   grid-template-columns: repeat(10, 40px);
   grid-template-rows: repeat(10, 40px);
-  width: 400px;
-  height: 400px;
+  width: 402px;
+  height: 402px;
   border: 1px solid ${({ theme }) => theme.colors.dark.primary};
 `
 
