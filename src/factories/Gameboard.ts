@@ -73,39 +73,24 @@ class Gameboard {
 
     // case ship doesn't fit in gameboard
     if (isVertical) {
-      if (column + ship.length > SIZE) return false
-    } else {
       if (row + ship.length > SIZE) return false
+    } else {
+      if (column + ship.length > SIZE) return false
     }
 
     // case any of the fields is already taken
     if (isVertical) {
       for (let i = 0; i < ship.length; i++) {
-        if (this.board[row][column + i]) return false
+        if (this.board[row + i][column]) return false
       }
     } else {
       for (let i = 0; i < ship.length; i++) {
-        if (this.board[row + i][column]) return false
+        if (this.board[row][column + i]) return false
       }
     }
 
     // case any of the neighbour fields are already taken
     if (isVertical) {
-      for (let i = 0; i < ship.length; i++) {
-        for (let x = -1; x <= 1; x++) {
-          for (let y = -1; y <= 1; y++) {
-            if (
-              row + x < 0 ||
-              row + x >= SIZE ||
-              column + y + i < 0 ||
-              column + y + i >= SIZE
-            )
-              continue
-            if (this.board[row + x][column + y + i]) return false
-          }
-        }
-      }
-    } else {
       for (let i = 0; i < ship.length; i++) {
         for (let x = -1; x <= 1; x++) {
           for (let y = -1; y <= 1; y++) {
@@ -117,6 +102,21 @@ class Gameboard {
             )
               continue
             if (this.board[row + x + i][column + y]) return false
+          }
+        }
+      }
+    } else {
+      for (let i = 0; i < ship.length; i++) {
+        for (let x = -1; x <= 1; x++) {
+          for (let y = -1; y <= 1; y++) {
+            if (
+              row + x < 0 ||
+              row + x >= SIZE ||
+              column + y + i < 0 ||
+              column + y + i >= SIZE
+            )
+              continue
+            if (this.board[row + x][column + y + i]) return false
           }
         }
       }

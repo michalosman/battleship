@@ -7,7 +7,7 @@ import EndScreen from './EndScreen'
 import StartScreen from './StartScreen'
 
 const Game = () => {
-  const [hasGameStarted, setHasGameStarted] = useState(false)
+  const [hasGameStarted, setHasGameStarted] = useState(true)
   const [isGameOver, setIsGameOver] = useState(false)
   const [endScreenMessage, setEndScreenMessage] = useState('')
   const [user, setUser] = useState(new Player('User'))
@@ -84,7 +84,7 @@ const Game = () => {
           gameboard={userGameboard}
           setUserGameboard={setUserGameboard}
           setHasGameStarted={setHasGameStarted}
-      />
+        />
       )}
       {isGameOver ? (
         <EndScreen message={endScreenMessage} resetGame={resetGame} />
