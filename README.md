@@ -23,6 +23,7 @@ npm start
 
 ## Built with
 
+- [TypeScript](https://www.typescriptlang.org/)
 - [React](https://reactjs.org/)
 - [styled-components](https://styled-components.com/)
 - [jest](https://jestjs.io/)
