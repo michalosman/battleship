@@ -18,13 +18,13 @@ const StartScreen = ({
 }: Props) => {
   const [currentShipName, setCurrentShipName] = useState('Carrier')
   const [currentShip, setCurrentShip] = useState(new Ship(5))
-  const [isVertical, setIsVertical] = useState(true)
+  const [isVertical, setIsVertical] = useState(false)
 
   const toggleRotate = () => {
     setIsVertical(!isVertical)
   }
 
-  const setShip = () => {
+  const onFieldClick = () => {
     // try to place ship on gameboard
     // if successful then change current name and ship
     // if unsuccessful return
@@ -36,16 +36,12 @@ const StartScreen = ({
       <Field
         key={uuidv4()}
         isFilled={field ? true : false}
-        currentShipLength={currentShip.length}
-        isVertical={isVertical}
-      />
+        onClick={onFieldClick}
+      >
+        <FieldHover shipLength={currentShip.length} isVertical={isVertical} />
+      </Field>
     ))
   })
-
-  const startGame = () => {
-    if (currentShipName === '') setHasGameStarted(true)
-    else alert('You have to place all ships before starting')
-  }
 
   return (
     <StartScreenWrapper>
@@ -87,27 +83,47 @@ const SetupWindow = styled.div`
 
 const Board = styled.div`
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  width: 40rem;
-  height: 40rem;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  width: 400px;
+  height: 400px;
   border: 1px solid ${({ theme }) => theme.colors.dark.primary};
 `
 
 interface IField {
   isFilled: boolean
-  currentShipLength: number
-  isVertical: boolean
 }
 
 const Field = styled.div<IField>`
   border: 1px solid ${({ theme }) => theme.colors.dark.primary};
+  cursor: pointer;
+`
 
-  ${({ isFilled }) =>
-    isFilled &&
-    css`
-      background-color: ${({ theme }) => theme.colors.dark.secondary};
-    `}
+interface IFieldHover {
+  shipLength: number
+  isVertical: boolean
+}
+
+const FieldHover = styled.div<IFieldHover>`
+  position: relative;
+  height: 38px;
+  width: 38px;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.green};
+
+    ${({ isVertical, shipLength }) =>
+      isVertical &&
+      css`
+        height: calc(38px + 40px * ${shipLength - 1});
+      `}
+
+    ${({ isVertical, shipLength }) =>
+      !isVertical &&
+      css`
+        width: calc(38px + 40px * ${shipLength - 1}); ;
+      `}
+  }
 `
 
 const Overlay = styled.div`
