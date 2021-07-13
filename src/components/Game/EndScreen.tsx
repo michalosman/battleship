@@ -29,7 +29,7 @@ const EndScreenWrapper = styled.div`
   width: 100%;
 `
 
-const EndMessage = styled.p`
+const EndMessage = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
