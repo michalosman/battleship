@@ -89,8 +89,12 @@ const StartScreen = ({
   return (
     <StartScreenWrapper>
       <SetupWindow>
-        <p>Welcome to battleship game</p>
-        <p>Place your {currentShipName}</p>
+        <p>
+          <strong>Welcome to battleship game</strong>
+        </p>
+        <p>
+          Place your <u>{currentShipName}</u>
+        </p>
         <Button content={'Rotate'} onClick={toggleRotate} />
         <Board>{loadFields()}</Board>
       </SetupWindow>
