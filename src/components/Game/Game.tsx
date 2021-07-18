@@ -14,7 +14,7 @@ const Game = () => {
   const [hasGameStarted, setHasGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [endScreenMessage, setEndScreenMessage] = useState('')
-  
+
   useEffect(() => {
     setupComputerGameboard()
   }, [])
@@ -106,7 +106,12 @@ const Game = () => {
 }
 
 const GameWrapper = styled.div`
+  margin-top: 5rem;
   font-size: 5rem;
+
+  @media (max-width: 768px) {
+    margin-top: 0;
+  }
 `
 const Boards = styled.div`
   display: flex;
