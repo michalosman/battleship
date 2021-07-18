@@ -10,7 +10,7 @@ Battleship game created in order to practice JavaScript testing.
 - [x] Main game screen
 - [x] Game over screen
 - [x] Start game screen
-- [ ] RWD
+- [x] RWD
 
 ## Getting started
 
