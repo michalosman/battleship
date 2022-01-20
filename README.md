@@ -16,7 +16,7 @@ Battleship game created in order to practice JavaScript testing.
 
 ```
 git clone https://github.com/michalosman/battleship.git
-cd shopping-cart
+cd battleship
 npm install
 npm start
 ```
